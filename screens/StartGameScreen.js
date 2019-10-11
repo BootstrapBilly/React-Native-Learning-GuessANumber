@@ -4,6 +4,8 @@ import { StyleSheet, Text, View, TextInput, Button, TouchableWithoutFeedback, Ke
 import Card from "../components/Card";
 import NumberInput from "../components/NumberInput";
 import Colors from "../constants/Colors";
+import StartGamePrompt from "../components/StartGamePrompt";
+import NumberDisplay from "../components/NumberDisplay"
 
 const StartGameScreen = props => {
 
@@ -42,13 +44,25 @@ const StartGameScreen = props => {
 
         setEnteredNumber("")//clear the input
 
+        closeKeyboard()
+
     }
 
     let confirmedOutput;//define a variable to output the confirmed number
 
     if(confirmed) {//if the number has been confirmed and validated
 
-        confirmedOutput = <Text>Selected number : {numberToSubmit}</Text>//Create a text node
+        confirmedOutput = <Card style={styles.promptCard}>
+                    <View style={styles.container}>
+
+<Text>"You have chosen :"</Text>
+
+<NumberDisplay ><Text style={styles.number}>{numberToSubmit}</Text></NumberDisplay>
+
+<View><Button title={"Start Game"} color={Colors.primary} onPress={() => props.onStartGame(numberToSubmit)}/></View>
+
+</View>
+</Card>//Create a text node
 
     } 
 
@@ -118,7 +132,14 @@ const styles = StyleSheet.create({
 
         width: "40%"
 
-    }
+    },
+
+    promptCard : {
+
+        paddingTop: 40,
+        elevation:10
+    },
+
 
 })
 
