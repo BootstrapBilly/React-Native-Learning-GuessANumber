@@ -5,6 +5,8 @@ import Card from "../components/Card";
 import NumberInput from "../components/NumberInput";
 import Colors from "../constants/Colors";
 import NumberDisplay from "../components/NumberDisplay"
+import HeaderText from "../components/HeaderText"
+import StartGameButton from "../components/StartGameButton"
 
 const StartGameScreen = props => {
 
@@ -32,7 +34,7 @@ const StartGameScreen = props => {
 
         if(isNaN(chosenNumber) || chosenNumber <=0 || chosenNumber > 99){ //if it fails validation, return
 
-            Alert.alert("Failure", "The ting failed", [{text:"Fuck off", style:"destructive", onPress: setEnteredNumber("")}])
+            Alert.alert("Failure", "The ting failed", [{text:"Noob", style:"destructive", onPress: setEnteredNumber("")}])
             return
 
         }
@@ -59,23 +61,26 @@ const StartGameScreen = props => {
 
             <NumberDisplay ><Text style={styles.number}>{numberToSubmit}</Text></NumberDisplay>
 
-            <View><Button title={"Start Game"} color={Colors.primary} onPress={() => props.onStartGame(numberToSubmit)}/></View>
+            <StartGameButton pointTo={() => props.onStartGame(numberToSubmit)}>Start Game!</StartGameButton>
+            
 
         </Card>
 
     } 
 
+    let holder = <View><Button title={"Start Game"} color={Colors.primary} onPress={() => props.onStartGame(numberToSubmit)}/></View>;
+    
     return (
 
         <TouchableWithoutFeedback  onPress={closeKeyboard}>
 
             <View style={styles.container}>
 
-                <Text style={styles.title}>Start A New Game!</Text>
+                <HeaderText style={styles.title}>Start A New Game!</HeaderText>
 
                 <Card style={styles.card}>
 
-                    <Text>Select a Number</Text>
+                    <Text style={styles.subTitle}>Select a Number</Text>
                     <NumberInput keyboardType="number-pad" maxLength={2} customStyle={styles.selectNumberInput} onChangeText={inputHandler} value={enteredNumber}/>
 
                     <View style={styles.buttonContainer}>
@@ -100,13 +105,18 @@ const styles = StyleSheet.create({
 
     title : {
 
-        fontSize: 18,
+
+    },
+
+    subTitle : {
+
+        fontSize: 15,
+        fontFamily: "open-sans-bold"
 
     },
 
     container : {
 
-        
         padding : 10,
         alignItems: "center",
         justifyContent: "center"
