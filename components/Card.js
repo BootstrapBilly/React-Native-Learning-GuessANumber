@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
     card : {
 
         alignItems: "center",
-        marginTop: 10,
+        justifyContent:"center",
+        marginTop:10,
         shadowColor: "black",
         shadowOpacity: 1,
         shadowOffset : {
@@ -26,8 +27,7 @@ const styles = StyleSheet.create({
         shadowRadius: 6,
         backgroundColor: "white",
         elevation: 5,
-        padding: 50,
-        paddingTop: 5,
+        padding:25,
         borderRadius: 10
 
     }

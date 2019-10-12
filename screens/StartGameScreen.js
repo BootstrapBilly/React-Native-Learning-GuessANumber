@@ -4,7 +4,6 @@ import { StyleSheet, Text, View, TextInput, Button, TouchableWithoutFeedback, Ke
 import Card from "../components/Card";
 import NumberInput from "../components/NumberInput";
 import Colors from "../constants/Colors";
-import StartGamePrompt from "../components/StartGamePrompt";
 import NumberDisplay from "../components/NumberDisplay"
 
 const StartGameScreen = props => {
@@ -52,17 +51,17 @@ const StartGameScreen = props => {
 
     if(confirmed) {//if the number has been confirmed and validated
 
-        confirmedOutput = <Card style={styles.promptCard}>
-                    <View style={styles.container}>
+        confirmedOutput = 
 
-<Text>"You have chosen :"</Text>
+        <Card style={styles.promptCard}>
 
-<NumberDisplay ><Text style={styles.number}>{numberToSubmit}</Text></NumberDisplay>
+                <Text>You have chosen : </Text>
 
-<View><Button title={"Start Game"} color={Colors.primary} onPress={() => props.onStartGame(numberToSubmit)}/></View>
+            <NumberDisplay ><Text style={styles.number}>{numberToSubmit}</Text></NumberDisplay>
 
-</View>
-</Card>//Create a text node
+            <View><Button title={"Start Game"} color={Colors.primary} onPress={() => props.onStartGame(numberToSubmit)}/></View>
+
+        </Card>
 
     } 
 
@@ -107,9 +106,10 @@ const styles = StyleSheet.create({
 
     container : {
 
-        flex:1,
+        
         padding : 10,
         alignItems: "center",
+        justifyContent: "center"
 
     },
 
@@ -136,10 +136,11 @@ const styles = StyleSheet.create({
 
     promptCard : {
 
-        paddingTop: 40,
-        elevation:10
+        justifyContent:"center",
+        alignItems: "center",
+        elevation:10,
+        marginTop: 15
     },
-
 
 })
 
