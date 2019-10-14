@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, TouchableWithoutFeedback, Keyboard, Modal, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, TouchableWithoutFeedback, Keyboard, Modal, Alert, Dimensions, ScrollView, KeyboardAvoidingView } from 'react-native';
 
 import Card from "../components/Card";
 import NumberInput from "../components/NumberInput";
@@ -28,19 +28,19 @@ const StartGameScreen = props => {
 
     }
 
-    const submitNumber = () => {     
+    const submitNumber = () => {
 
         const chosenNumber = parseInt(enteredNumber);//store the entered number in a constant
 
-        if(isNaN(chosenNumber) || chosenNumber <=0 || chosenNumber > 99){ //if it fails validation, return
+        if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) { //if it fails validation, return
 
-            Alert.alert("Failure", "The ting failed", [{text:"Noob", style:"destructive", onPress: setEnteredNumber("")}])
+            Alert.alert("Failure", "The ting failed", [{ text: "Noob", style: "destructive", onPress: setEnteredNumber("") }])
             return
 
         }
 
         setConfirmed(true)//set the confirmation state to true
-        
+
         setNumberToSubmit(chosenNumber)//Set the submitted number to the number which was entered
 
         setEnteredNumber("")//clear the input
@@ -51,85 +51,93 @@ const StartGameScreen = props => {
 
     let confirmedOutput;//define a variable to output the confirmed number
 
-    if(confirmed) {//if the number has been confirmed and validated
+    if (confirmed) {//if the number has been confirmed and validated
 
-        confirmedOutput = 
+        confirmedOutput =
 
-        <Card style={styles.promptCard}>
+            <Card style={styles.promptCard}>
 
                 <Text>You have chosen : </Text>
 
-            <NumberDisplay ><Text style={styles.number}>{numberToSubmit}</Text></NumberDisplay>
+                <NumberDisplay ><Text style={styles.number}>{numberToSubmit}</Text></NumberDisplay>
 
-            <StartGameButton pointTo={() => props.onStartGame(numberToSubmit)}>Start Game!</StartGameButton>
-            
+                <StartGameButton pointTo={() => props.onStartGame(numberToSubmit)}>Start Game!</StartGameButton>
 
-        </Card>
 
-    } 
+            </Card>
 
-    let holder = <View><Button title={"Start Game"} color={Colors.primary} onPress={() => props.onStartGame(numberToSubmit)}/></View>;
-    
+    }
+
+    let holder = <View><Button title={"Start Game"} color={Colors.primary} onPress={() => props.onStartGame(numberToSubmit)} /></View>;
+
     return (
 
-        <TouchableWithoutFeedback  onPress={closeKeyboard}>
+        <ScrollView>
 
-            <View style={styles.container}>
+            <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={30}>
 
-                <HeaderText style={styles.title}>Start A New Game!</HeaderText>
+                <TouchableWithoutFeedback onPress={closeKeyboard}>
 
-                <Card style={styles.card}>
+                    <View style={styles.container}>
 
-                    <Text style={styles.subTitle}>Select a Number</Text>
-                    <NumberInput keyboardType="number-pad" maxLength={2} customStyle={styles.selectNumberInput} onChangeText={inputHandler} value={enteredNumber}/>
+                        <HeaderText style={styles.title}>Start A New Game!</HeaderText>
 
-                    <View style={styles.buttonContainer}>
+                        <Card style={styles.card}>
 
-                        <View style={styles.button}><Button color={"red"} title="Reset" onPress={() => {setEnteredNumber("")}}/></View>
-                        <View style={styles.button}><Button color={Colors.primary} title="Confirm" onPress={submitNumber}/></View>
-                        
+                            <Text style={styles.subTitle}>Select a Number</Text>
+                            <NumberInput keyboardType="number-pad" maxLength={2} customStyle={styles.selectNumberInput} onChangeText={inputHandler} value={enteredNumber} />
+
+                            <View style={styles.buttonContainer}>
+
+                                <View style={styles.button}><Button color={"red"} title="Reset" onPress={() => { setEnteredNumber("") }} /></View>
+                                <View style={styles.button}><Button color={Colors.primary} title="Confirm" onPress={submitNumber} /></View>
+
+                            </View>
+
+                        </Card>
+
+                        {confirmedOutput}
+
                     </View>
 
-                </Card>
+                </TouchableWithoutFeedback >
 
-                {confirmedOutput}
+            </KeyboardAvoidingView>
 
-            </View>
-
-        </TouchableWithoutFeedback >
+        </ScrollView>
     )
 
 }
 
 const styles = StyleSheet.create({
 
-    title : {
+    title: {
 
 
     },
 
-    subTitle : {
+    subTitle: {
 
         fontSize: 15,
         fontFamily: "open-sans-bold"
 
     },
 
-    container : {
+    container: {
 
-        padding : 10,
+        padding: 10,
         alignItems: "center",
         justifyContent: "center"
 
     },
 
-    selectNumberInput : {
+    selectNumberInput: {
 
         textAlign: "center"
 
     },
 
-    buttonContainer : {
+    buttonContainer: {
 
         flexDirection: "row",
         width: "80%",
@@ -138,17 +146,17 @@ const styles = StyleSheet.create({
 
     },
 
-    button : {
+    button: {
 
         width: "40%"
 
     },
 
-    promptCard : {
+    promptCard: {
 
-        justifyContent:"center",
+        justifyContent: "center",
         alignItems: "center",
-        elevation:10,
+        elevation: 10,
         marginTop: 15
     },
 

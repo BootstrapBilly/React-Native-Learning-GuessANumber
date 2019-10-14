@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, TouchableWithoutFeedback, Keyboard, Modal, Alert, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, TouchableWithoutFeedback, Keyboard, Modal, Alert, Image, Dimensions } from 'react-native';
 
 const WinScreen = props => {
 
@@ -26,18 +26,21 @@ const styles = StyleSheet.create({
     screen : {
 
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
+        justifyContent: "flex-start",
+        alignItems: "center",
+        marginTop: Dimensions.get("window").height * 0.05
+        
     },
 
     imageContainer : {
 
-        width:300,
-        height: 300,
+        width: Dimensions.get("window").width * 0.7,
+        height: Dimensions.get("window").width * 0.7 ,
         overflow: "hidden",
-        borderRadius: 200,
+        borderRadius: Dimensions.get("window").width * 0.7 / 2 ,
         borderColor: "black",
-        borderWidth: 3
+        borderWidth: 3,
+        
     },
     
     image : {
